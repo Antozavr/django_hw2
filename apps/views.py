@@ -1,7 +1,4 @@
-from django.http import HttpResponse
-from django.shortcuts import render, reverse
-import datetime
-import os
+from django.shortcuts import render
 
 DATA = {
     'omlet': {
@@ -26,31 +23,6 @@ DATA = {
         'яблоко, шт': 2,
     }
 }
-
-
-def home_view(request):
-    template_name = 'apps/home.html'
-    pages = {
-        'Главная страница': reverse('home'),
-        'Показать текущее время': reverse('time'),
-        'Показать содержимое рабочей директории': reverse('workdir'),
-    }
-
-    context = {
-        'pages': pages
-    }
-    return render(request, 'home.html', context)
-
-
-def time_view(request):
-    current_time = datetime.datetime.now().time()
-    msg = f'Текущее время: {current_time}'
-    return HttpResponse(msg)
-
-
-def workdir_view(request):
-    file_lst = os.listdir(path='.')
-    return HttpResponse(file_lst)
 
 
 def dishes_calculator(request, dish):
